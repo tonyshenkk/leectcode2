@@ -1,0 +1,31 @@
+class Solution {
+public:
+double findMedianSortedArrays(int A[], int m, int B[], int n, int mid)
+{
+    if(m > n)
+        return findMedianSortedArrays(B, n, A, m, mid);
+    if(m == 0)
+        return B[mid - 1];
+    if(mid == 1)
+        return min(A[0], B[0]);
+    int pa = min(mid / 2, m);
+    int pb = mid - pa;
+    if(A[pa - 1] < B[pb - 1])
+        return findMedianSortedArrays(A + pa, m - pa, B, n, mid - pa);
+    else if(A[pa - 1] > B[pb - 1])
+        return findMedianSortedArrays(A, m, B + pb, n - pb, mid - pb);
+    else
+        return A[pa - 1];
+    
+}
+    double findMedianSortedArrays(int A[], int m, int B[], int n) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        total = (m + n);
+        if(total & 0x1)
+            return findMedianSortedArrays(A, m, B, n, total / 2 + 1);
+        else
+            return (findMedianSortedArrays(A, m, B, n, total / 2) + findMedianSortedArrays(A, m, B, n, total / 2 + 1)) / 2;
+    }
+    int total;
+};
