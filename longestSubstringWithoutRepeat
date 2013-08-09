@@ -1,0 +1,36 @@
+struct node{
+  bool app;
+  int index;
+  node(bool val, int id): app(val), index(id){}
+};
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        node table[256];
+        for(int i = 0; i < 256; i++)
+            table[i].app = false;
+        int low = 0, high = s.length(), maxLen = 0;
+        for(int i = 0; i < high; i++)
+        {
+            if(!table[s.at(i)].app)
+            {
+                table[s.at(i)].app = true;
+                table[s.at(i)].index = i;
+            }
+            else
+            {
+                if(table[s.at(i)].index - low > maxLen)
+                    maxLen = table[s.at(i)].index - low;
+                while(low < table[s.at(i)].index)
+                {
+                    table[s.at(low)].app = false;
+                    low++;
+                }
+            }
+        }
+        return maxLen;
+    }
+};
