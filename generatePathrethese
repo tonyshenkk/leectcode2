@@ -1,0 +1,36 @@
+class Solution {
+public:
+    void generate(vector<string> &res, int left, int right, char temp[], int indx)
+    {
+        if(left == 0 && right == 0)
+        {
+            temp[indx] = '\0';
+            string s(temp);
+            res.push_back(s);
+        }
+        else
+        {
+            if(left > 0)
+            {
+                temp[indx] = '(';
+                 generate(res, left - 1, right, temp, indx + 1);
+            }
+            if(right > left)
+            {
+                temp[indx] = ')';
+                generate(res, left, right - 1, temp, indx + 1);
+            }                
+        }
+            
+    }
+    vector<string> generateParenthesis(int n) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<string> res;
+        if(n < 1)
+            return res;
+        char *temp = new char[n * 2 + 1];
+        generate(res, n, n, temp, 0);
+        return res;
+    }
+};
