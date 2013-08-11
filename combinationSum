@@ -1,0 +1,33 @@
+class Solution {
+public:
+    void combination(vector<vector<int>> &res, vector<int> &temp, vector<int> &cand,
+        int pos, int& sum, int target)
+    {
+        if(sum > target)
+            return;
+        if(sum == target)
+        {
+            res.push_back(temp);
+            return;
+        }          
+        for(int i = pos; i < cand.size(); i++)
+        {
+            sum += cand[i];
+            temp.push_back(cand[i]);
+            combination(res, temp, cand, i, sum, target);
+            temp.pop_back();
+            sum -= cand[i];
+        }
+    }
+    vector<vector<int> > combinationSum(vector<int> &candidates, int target) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<vector<int>> res;
+        vector<int> temp;
+        int sum = 0;
+        sort(candidates.begin(), candidates.end());
+        combination(res, temp, candidates, 0, sum, target);
+        
+        return res;
+    }
+};
