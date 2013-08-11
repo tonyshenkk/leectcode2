@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void nextPermutation(vector<int> &num) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        int len = num.size();
+        if(len < 2)
+      	return;
+    	int swap1, swap2;
+    	for(swap1 = len - 2; swap1 >= 0; swap1--)
+    	{
+    		if(num[swap1] < num[swap1 + 1])
+    			break;                
+    	}
+    	if(swap1 < 0)
+    	{
+    		reverse(num.begin(), num.end());
+    		return;
+    	}
+    	for(swap2 = len - 1; swap2 > swap1; swap2--)
+    	{
+    		if(num[swap2] > num[swap1])
+    			break;
+    	}
+    	swap(num[swap1], num[swap2]);
+    	sort(num.begin() + swap1 + 1, num.end());
+    }
+};
