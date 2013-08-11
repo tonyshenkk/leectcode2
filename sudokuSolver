@@ -1,0 +1,42 @@
+class Solution {
+public:
+    bool isValid(vector<vector<char> > &board, int row, int col)
+    {
+        char c = board[row][col];
+        for(int i = 0; i < 9; i++)
+            if(c == board[i][col] && i != row)
+                return false;
+        for(int i = 0; i < 9; i++)
+            if(c == board[row][i] && i != col)
+                return false;
+        for(int i = row / 3 * 3; i < row / 3 * 3 + 3; i++)
+      for(int j = col / 3 * 3; j < col / 3 * 3 + 3; j++)
+			if(c == board[i][j] &&  i != row && j != col)
+				return false;;
+        return true;
+    }
+    bool generateSudoku(vector<vector<char> > &board)
+    {
+        for(int i = 0; i < 9; i++)
+            for(int j = 0; j < 9; j++)
+            {
+                if(board[i][j] == '.')
+                {
+                    for(int k = 1; k < 10; k++)
+                    {
+                        board[i][j] = '0' + k;
+                        if(isValid(board, i, j) && generateSudoku(board))
+                            return true;
+                        board[i][j] = '.';
+                    }
+                    return false;
+                }
+            }
+        return true;
+    }
+    void solveSudoku(vector<vector<char> > &board) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        generateSudoku(board);
+    }
+};
