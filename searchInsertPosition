@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int searchInsert(int A[], int n, int target) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function        
+        int low = -1, high = n - 1, mid;
+        while(low + 1 != high)
+        {
+            mid = (low + high) / 2;
+            if(A[mid] < target)
+                low = mid;
+            else
+                high = mid;
+        }
+        if(A[high] >= target)
+  	    return high;
+	    else if(A[high] < target)
+		    return high + 1;
+    }
+};
