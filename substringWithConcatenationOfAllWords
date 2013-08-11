@@ -1,0 +1,59 @@
+class Solution {
+public:
+    vector<int> findSubstring(string S, vector<string> &L) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<int> res;
+        int len = L.size();
+      if(len == 0)
+    		return res;
+    
+    	map<string, int> curMap;
+    	map<string, int> dstMap;
+    	int total = 0;
+    	for(int i = 0; i < len; i++)
+    		dstMap[L[i]]++;
+    	int k = L[0].size(), lenS = S.length(), num;
+    	string word, temp;
+    	for(int i = 0; i < k; i++)
+    	{
+    		num = (lenS - i) / k;
+    		curMap.clear();
+    		total = 0;
+    		for(int j = 0; j < num; j++)
+    		{
+    			word = S.substr(i + j * k, k);
+    			curMap[word]++;
+    			total++;
+    
+    			if(dstMap.find(word) == dstMap.end())
+    			{
+    				curMap.clear();
+    				total = 0;
+    			}
+    			else if(curMap[word] > dstMap[word] && j != num - 1)
+    			{
+                    temp = S.substr(i + (j - total + 1) * k, k);
+    				while(temp != word)
+    				{
+    					if (--curMap[temp])
+    					{
+    						curMap.erase(temp);
+    					}
+    					total--;
+                        temp = S.substr(i + (j - total + 1) * k, k);
+    				}
+    				--curMap[word];
+    				total--;
+    			}
+    			else if(curMap == dstMap)
+    			{
+    				res.push_back(i + j * k - k * (len - 1));
+    				curMap[S.substr(i + j * k - k * (len - 1), k)]--;
+    				total--;
+    			}
+    		}
+    	}
+    	return res;
+    }
+};
