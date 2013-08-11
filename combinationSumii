@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void combination(vector<vector<int>> &res, vector<int> &temp, vector<int > &num, 
+    int &sum, int pos, int target)
+    {
+        if(sum > target)
+            return;
+        if(sum == target)
+        {
+            if(find(res.begin(), res.end(), temp) == res.end())
+                res.push_back(temp);
+            return;
+        }
+        for(int i = pos; i < num.size(); i++)
+        {
+            sum += num[i];
+            temp.push_back(num[i]);
+            combination(res, temp, num, sum, i + 1, target);
+            temp.pop_back();
+            sum -= num[i];
+        }
+    }
+    vector<vector<int> > combinationSum2(vector<int> &num, int target) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        int sum = 0;
+        vector<vector<int>> res;
+        vector<int > temp;
+        
+        sort(num.begin(), num.end());
+        combination(res, temp, num, sum, 0, target);
+        
+        return res;
+    }
+};
