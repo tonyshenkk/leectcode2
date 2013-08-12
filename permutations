@@ -1,0 +1,67 @@
+//O(n) sapce complexity
+class Solution {
+public:
+    void findPermute(vector<int> & num, int step, vector<int>& visited, vector<int>& solution, vector<vector<int> >& coll)  
+    { 
+        if(step==num.size())
+        {
+            coll.push_back(solution);
+            return;
+        }
+        
+        for(int i=0; i<num.size(); i++)
+        {
+            if(visited[i]==0)
+            {
+                visited[i]=1;
+                solution.push_back(num[i]);
+                findPermute(num, step+1, visited, solution, coll);
+                solution.pop_back();
+                visited[i]=0;
+            }
+        }
+    }  
+    vector<vector<int> > permute(vector<int> &num) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<int> solution;
+        vector<int> visited(num.size(), 0);
+        vector<vector<int> > coll;
+        if(num.empty()) return coll;
+        
+        findPermute(num, 0, visited, solution, coll);
+        
+        return coll;
+        
+    }
+};
+
+////no extra space
+//void generate(vector<vector<int>> &res, int k, int n, vector<int> &num)
+//{
+//  if(k == n - 1)
+//	{
+//		res.push_back(num);
+//	}
+//	else
+//	{
+//		for(int i = k; i < n; i++)
+//		{
+//			swap(num[i], num[k]);
+//			generate(res, k + 1, n, num);
+//			swap(num[i], num[k]);
+//		}
+//	}
+//}
+//vector<vector<int> > permute(vector<int> &num) {
+//	// Start typing your C/C++ solution below
+//	// DO NOT write int main() function
+//	vector<vector<int>> res;
+//	int len = num.size();
+//	if(len < 1)
+//		return res;
+//
+//	generate(res, 0, len, num);
+//
+//	return res;
+//}
