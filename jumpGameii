@@ -1,0 +1,65 @@
+//more concise, but slower
+class Solution {
+public:
+    int jump(int A[], int n) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        if(n == 1)
+            return 0;
+        int maxDes = 0, start = 0, end = 0, step = 0;
+        while(end < n)
+        {
+            for(int i = start; i <= end; i++)
+            {
+                if(A[i] + i > maxDes)
+                {
+                    maxDes = A[i] + i;
+                    if(maxDes >= n - 1)
+                        return ++step;
+                }
+            }
+            start = end + 1;
+            end = maxDes;
+            step++;
+        }
+        return step;
+    }
+};
+
+////more complicated, but faster
+
+//class Solution {
+//public:
+//  int jump(int A[], int n) {
+//		// Start typing your C/C++ solution below
+//		// DO NOT write int main() function
+//		if(n == 1)
+//			return 0;
+//		int *step = new int[n];
+//		memset(step, 0, sizeof(int) * n);
+//		step[0] = 0;
+//		int lon = 0, st = 0;
+//		for(int i = 0; i < n; i++)
+//		{
+//			if(A[i] + i > lon)
+//			{
+//				lon = A[i] + i;
+//				st = step[i] + 1;
+//				if (lon >= n - 1)
+//				{
+//					delete[] step;
+//					return st;
+//				}
+//				step[A[i] + i] = st;
+//
+//				for (int j = i + 1; j < lon; j++)
+//					if (step[j] > st || step[j] == 0)
+//					{
+//						step[j] = st;
+//					}
+//			}
+//		}
+//		delete[] step;
+//		return st;
+//	}
+//};
