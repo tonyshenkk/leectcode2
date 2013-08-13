@@ -5,7 +5,7 @@ public:
         // DO NOT write int main() function
         int temp = abs(n);
         double res = 1.0;
-        for(;temp; x *= x, temp >> 1)
+        for(;temp; x *= x, temp = temp >> 1)
         {
             if(temp & 1)
             {
