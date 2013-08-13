@@ -1,0 +1,38 @@
+class Solution {
+public:
+
+    bool check(vector<int> &num, int begin, int end)
+    {
+        for(int i = begin; i < end; i++)
+            if(num[i] == num[end])
+                return false;
+        return true;
+    }
+    void generate(vector<vector<int>> &res, vector<int> &num, int pos, int len)
+    {
+        if(pos == len)
+        {
+            res.push_back(num);
+            return;
+        }
+        for(int i = pos; i < len; i++)
+        {
+            if(check(num, pos, i))
+            {
+                swap(num[i], num[pos]);
+                generate(res, num, pos + 1, len);
+                swap(num[i], num[pos]);
+            }
+        }
+    }
+    vector<vector<int> > permuteUnique(vector<int> &num) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<vector<int>> res;
+        int len = num.size();
+        if(len < 1)
+            return res;
+        generate(res, num, 0, len);
+        return res;
+    }
+};
