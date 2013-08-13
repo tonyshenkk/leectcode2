@@ -36,3 +36,44 @@ public:
         return res;
     }
 };
+
+////non recursion, faster
+//class Solution {
+//public:
+//	bool nextPermute(vector<int> &num, int &len)
+//	{
+//		for(int i = len - 2; i >= 0; i--)
+//		{
+//			if(num[i] < num[i + 1])
+//			{
+//				for(int j = len -1; j > i; j--)
+//				{
+//					if(num[j] > num[i])
+//					{
+//						swap(num[i], num[j]);
+//						sort(num.begin() + i + 1, num.end());
+//						return true;
+//					}
+//				}
+//			}
+//		}
+//		reverse(num.begin(), num.end());
+//		return false;
+//	}
+//	vector<vector<int> > permuteUnique(vector<int> &num) {
+//		// Start typing your C/C++ solution below
+//		// DO NOT write int main() function
+//		vector<vector<int>> res;
+//		int len = num.size();
+//		if(len < 1)
+//			return res;
+//		sort(num.begin(), num.end());
+//		res.push_back(num);
+//		while(nextPermute(num, len))
+//		{
+//			res.push_back(num);
+//		}
+//
+//		return res;
+//	}
+//};
