@@ -1,0 +1,58 @@
+class Solution {
+public:
+    bool check(vector<int> &temp, int row, int col)
+    {
+        if(temp[row] != -5000)
+    		return false;
+    
+    	for(int i = 0; i < temp.size(); i++)
+    	{
+    		if(temp[i] == col || abs(i -row) == abs(temp[i] - col))
+    			return false;
+    	}
+    	return true;
+    }
+    void queens(vector<vector<string>> &res, vector<int> &temp, int pos)
+    {
+    	if(pos >= temp.size())
+    	{
+    		vector<string> sol;
+    		for(int i = 0; i < temp.size(); i++)
+    		{
+    			string s(temp.size(), '.');
+    			s.at(temp[i]) = 'Q';
+    			sol.push_back(s);
+    		}
+    		res.push_back(sol);
+    	}
+    	else
+    	{
+    		for(int i = 0; i < temp.size(); i++)
+    		{
+    			if (pos == 0)
+    			{
+    				for (int j = 0; j < temp.size(); j++)
+    				{
+    					temp[j] = -5000;
+    				}
+    			}
+    			if (check(temp, pos, i))
+    			{
+    				temp[pos] = i;
+    				queens(res, temp, pos + 1);
+    				temp[pos] = -5000;
+    			}
+    		}
+    	}
+    }
+    vector<vector<string> > solveNQueens(int n) {
+    	// Start typing your C/C++ solution below
+    	// DO NOT write int main() function
+    	vector<vector<string>> res;
+    	vector<int> temp(n, -5000);
+    
+    	queens(res, temp, 0);
+    
+    	return res;
+    }
+};
