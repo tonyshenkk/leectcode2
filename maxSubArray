@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int maxSubArray(int A[], int n) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        if(n < 1)
+            return 0;
+        int maxS = A[0], sumS = 0;
+        for(int i = 0; i < n; i++)
+        {
+            sumS += A[i];
+            if(sumS > maxS)
+                maxS = sumS;
+            if(sumS < 0)
+                sumS = 0;
+        }
+        return maxS;
+    }
+};
