@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string getPermutation(int n, int k) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<int> num(n);
+        int factor = 1;
+        for(int i = 0; i < n; i++)
+        {
+            num[i] = i + 1;
+            factor =factor * (i + 1);
+        }
+        int c;
+        string str = "";
+        k--;
+        for(int i = 0; i < n; i++)
+        {
+            factor /= (n - i);
+            c = k / factor;
+            
+            str.push_back(num[c] + '0');
+            
+            for(int j = c; j < n - i; j++)
+                num[j] = num[j + 1];
+            k = k % factor;
+        }
+        return str;
+    }
+};
