@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int totalNQueens(int n){
+        cnt = 0;
+        upper = (1<<n)-1 ;
+        Queen(0,0,0);
+        return cnt;
+    }
+    
+private:
+    void Queen(int row, int ld, int rd){//ld, left 对角线; rd, right 对角线
+         int pos, p;
+         if(row!=upper)
+         {
+             //so pos in binary is like, under current row/ld/rd restriction, what is available slot to put Q
+             pos = upper & (~(row | ld |rd));
+             while(pos!=0)//available is 1
+             {
+                 p = pos & (-pos);//from right to left, the first "1" in pos
+                 pos = pos - p;//now take this available as ”Q“，pos kind of like a available slot marker
+                 Queen(row+p,(ld+p)<<1,(rd+p)>>1);
+             }
+         }
+         else ++cnt;
+    }
+    int cnt;
+    int upper;
+};
