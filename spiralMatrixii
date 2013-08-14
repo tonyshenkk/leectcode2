@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int> > generateMatrix(int n) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<vector<int>> res(n, vector<int>(n));
+        
+        int k = 1;
+        int row, col;
+        for(int i = 0; i <= (n + 1) / 2; i++)
+        {
+            col = n - i - 1;
+            for(int j = i; j <= col; j++)
+                res[i][j] = k++;
+                
+            row = col;
+            for(int j = i + 1; j <= row; j++)
+                res[j][col] = k++;
+            
+            for(int j = col - 1; j >= i; j--)
+                res[row][j] = k++;
+                
+            for(int j = row - 1; j > i; j--)
+                res[j][i] = k++;
+                
+            
+        }
+        return res;
+    }
+};
