@@ -1,0 +1,48 @@
+class Solution {
+public:
+    bool isNumber(const char *s) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        const char* p = s;
+
+    	while(*p == ' ')
+    		p++;
+    
+    	bool num = false, dot = false, ex = false, space = false, sig = false;
+    	if(*p == '+' || *p == '-')
+    		p++;
+    	while(*p)
+    	{
+    		if(*p >= '0' && *p <= '9')
+    		{
+    			num = true;
+    		}
+    		else if(*p == '.' && !dot && !ex)
+    		{
+    			dot = true;
+    		}
+    		else if((*p == 'E' || *p == 'e') && num && !ex)
+    		{
+    			ex = true;
+    			if(*(p + 1) == '+' || *(p + 1) == '-')
+    				p++;
+    			if(*(p + 1) < '0' || *(p + 1) > '9')
+    				return false;
+    		}
+    		else if(!space && num)
+    		{
+    			while(*p)
+    			{
+    				if(*p != ' ')
+    					return false;
+    				p++;
+    			}
+    			break;
+    		}
+    		else
+    			return false;
+    		p++;
+    	}
+    	return num;
+    }
+};
