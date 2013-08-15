@@ -1,0 +1,63 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        string::reverse_iterator ita = a.rbegin(), itb = b.rbegin();
+        string res = "";
+        int flag = 0;
+        char t;
+        while(ita != a.rend() && itb != b.rend())
+        {
+            t = *ita + *itb - '0' + flag;
+            if(t > '1')
+            {
+                t -= 2;
+                flag = 1;
+            }
+            else
+            {
+                flag = 0;
+            }
+            res = t + res;
+            ita++;
+            itb++;
+        }
+        while(ita != a.rend())
+        {
+            t = *ita + flag;
+            if(t > '1')
+            {
+                t -= 2;
+                flag = 1;
+            }
+            else
+            {
+                flag = 0;
+            }
+            res = t + res;
+            ita++;
+        }
+        while(itb != b.rend())
+        {
+            t = *itb + flag;
+            if(t > '1')
+            {
+                t -= 2;
+                flag = 1;
+            }
+            else
+            {
+                flag = 0;
+            }
+            res = t + res;
+            itb++;
+        }
+        if(flag)
+        {
+		        t = flag + '0';
+		        res = t + res;
+	      }
+        return res;
+    }
+};
