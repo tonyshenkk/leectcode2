@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void generate(vector<vector<int>> &res, vector<int> &temp, vector<int> &s,vector<int> &visit, int level)
+    {
+        for(int i = level; i < s.size(); i++)
+        {
+            if(!visit[i])
+            {
+                visit[i] = 1;
+                temp.push_back(s[i]);
+                res.push_back(temp);
+                generate(res, temp, s, visit, i + 1);
+                visit[i] = 0;
+                temp.pop_back();
+            }
+        }
+    }
+    vector<vector<int> > subsets(vector<int> &S) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<vector<int>> res;
+        int len = S.size();
+        
+        vector<int> temp;
+        res.push_back(temp);
+        if(len < 1)
+            return res;
+            
+        vector<int> visit(len, 0);
+        sort(S.begin(), S.end());
+        generate(res, temp, S, visit, 0);
+        
+        return res;
+    }
+};
