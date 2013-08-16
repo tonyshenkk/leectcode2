@@ -1,0 +1,49 @@
+class Solution {
+public:
+    string minWindow(string S, string T) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        int lens = S.length(), lent = T.length();
+        if(lens < 1 || lens < lent)
+            return "";
+        int hash1[256] = {0}, hash2[256] = {0}, count = 0;
+        for(int  i = 0; i < lent; i++)
+        {
+            hash1[T.at(i)]++;
+            hash2[T.at(i)]++;
+            count++;
+        }
+        int start = 0, minStart = 0, minlen = INT_MAX;
+        for(int i = 0; i < lens; i++)
+        {
+            if(hash1[S.at(i)])
+            {
+                hash2[S.at(i)]--;
+                if(hash2[S.at(i)] >= 0)
+                    count--;
+            }
+            if(0 == count)
+            {
+                while(start < i)
+                {
+                    if(hash1[S.at(start)] > 0)
+                    {
+                        if(hash2[S.at(start)] < 0)
+                            hash2[S.at(start)]++;
+                        else
+                            break;
+                    }
+                    start++;
+                }
+                if(i - start + 1 < minlen)
+                {
+                    minlen = i - start + 1;
+                    minStart = start;
+                }
+            }
+        }
+        if(minlen == INT_MAX)
+            return "";
+        return S.substr(minStart, minlen);
+    }
+};
