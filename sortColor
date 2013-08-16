@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void sortColors(int A[], int n) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        int B[3] = {0};
+        for(int i = 0; i < n; i++)
+        {
+            B[A[i]]++;
+        }
+        int i = 0;
+        while(B[0])
+        {
+            A[i++] = 0;
+            b[0]--;
+        }
+        while(B[1])
+        {
+            A[i++] = 1;
+            b[1]--;
+        }
+        while(B[2])
+        {
+            A[i++] = 2;
+            b[2]--;
+        }
+    }
+};
