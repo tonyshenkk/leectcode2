@@ -26,3 +26,34 @@ public:
         }
     }
 };
+
+
+//one pass
+class Solution {
+public:
+    void sortColors(int A[], int n) {
+    // Start typing your C/C++ solution below
+	// DO NOT write int main() function
+    	int zero = 0, two = n - 1;
+    	for (int i = 0; i <= two && zero < two; i++)
+    	{
+    		if (A[i] == 0)
+    		{
+    			swap(A[i], A[zero]);
+    			zero++;
+    		}
+    		else if (A[i] == 2)
+    		{
+    			while(two > i && A[two] == 2)
+    				two--;
+    			swap(A[i], A[two]);
+    			if (A[i] == 0)
+    			{
+    				swap(A[i], A[zero]);
+    				zero++;
+    			}
+    		}
+    		else{}
+    	}
+    }
+};
