@@ -1,0 +1,33 @@
+class Solution {
+public:
+    void generate(vector<vector<int>> &res, vector<int> &visit, 
+        vector<int> &temp, int pos, int k)
+    {
+        if(temp.size() == k)
+        {
+            res.push_back(temp);
+            return;
+        }
+        for(int i = pos; i < visit.size(); i++)
+        {
+            if(!visit[i])
+            {
+                visit[i] = 1;
+                temp.push_back(i + 1);
+                generate(res, visit, temp, i + 1, k);
+                visit[i] = 0;
+                temp.pop_back();
+            }
+        }
+    }
+    vector<vector<int> > combine(int n, int k) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        
+        vector<int> visit(n, 0);
+        vector<vector<int>> res;
+        vector<int> temp;
+        generate(res, visit, temp, 0, k);
+        return res;
+    }
+};
