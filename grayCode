@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> grayCode(int n) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<int> res;
+        res.push_back(0);
+        if(n < 1)
+            return res;
+        
+        res.push_back(1);
+        
+        n--;
+        int shift = 1;
+        while(n)
+        {
+            int len = res.size() - 1;
+            for(int i = len; i >= 0; i--)
+            {
+                res.push_back(res[i] + (1<<shift));
+            }
+            n--;
+            shift++;
+        }
+        return res;
+    }
+};
