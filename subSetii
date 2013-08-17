@@ -1,0 +1,25 @@
+class Solution {
+public:
+
+    void generate(vector<vector<int>> &res, vector<int> &temp, vector<int> &s, int level)
+    {
+        for(int i = level; i < s.size();i++)
+        {
+            temp.push_back(s[i]);
+            if(find(res.begin(), res.end(), temp) == res.end())
+                res.push_back(temp);
+            generate(res, temp, s, i + 1);
+            temp.pop_back();
+        }
+    }
+    vector<vector<int> > subsetsWithDup(vector<int> &S) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<vector<int>> res;
+        vector<int> temp;
+        res.push_back(temp);
+        sort(S.begin(), S.end());
+        generate(res, temp, S, 0);
+        return res;
+    }
+};
