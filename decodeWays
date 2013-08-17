@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int numDecodings(string s) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        int len = s.size();
+        if(len < 1)
+            return 0;
+        vector<int> temp(len + 2, 1);
+        for(int i = len - 1; i >=0; i--)
+        {
+            if(s[i] == '0')
+                temp[i] = 0;
+            else
+                temp[i] = temp[i + 1];
+                
+            if(i + 1 < len &&(s[i] == '1' || s[i] == '2' && s[i + 1] < '7'))
+                temp[i] += temp[i + 2];
+        }
+        return temp[0];
+    }
+};
