@@ -9,7 +9,7 @@
  */
 class Solution {
 public:
-    bool check(TreeNode* root, int t, int sum)
+    bool check(TreeNode* root, int &t, int sum)
     {
         if(root)
         {
@@ -20,7 +20,7 @@ public:
             }
             bool left = check(root->left, t, sum);
             bool right = check(root->right, t, sum);
-            //t -= root->val;
+            t -= root->val;
             
             return left || right;
         }
@@ -31,7 +31,7 @@ public:
         // Start typing your C/C++ solution below
         // DO NOT write int main() function
         
-        //int t = 0;
-        return check(root, 0, sum);
+        int t = 0;
+        return check(root, t, sum);
     }
 };
