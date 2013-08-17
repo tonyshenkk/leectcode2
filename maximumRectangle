@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int largestRectangleArea(vector<int> &height) {
+        // Start typing your C/C++ solution below
+    	// DO NOT write int main() function
+    	int len = height.size();
+    	if(len < 0)
+    		return 0;
+    	vector<int> sta;
+    	height.push_back(0);
+    	len++;
+    	int temp, maxRec = 0;
+    	for(int i = 0; i < len; i++)
+    	{
+    		if(sta.empty() || height[i] > height[sta.back()])
+    			sta.push_back(i);
+    		else
+    		{
+    			temp = sta.back();
+    			sta.pop_back();
+    			maxRec = max(maxRec, height[temp] * (sta.empty() ? i : i - sta.back() - 1));
+    			i--;
+    		}
+    	}
+        height.pop_back();
+    	return maxRec;
+    }
+    
+    int maximalRectangle(vector<vector<char> > &matrix) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        if(matrix.empty())
+            return 0;
+        int row = matrix.size(), col = matrix[0].size();
+        vector<vector<int>> temp(row, vector<int>(col, 0));
+        
+        for(int i = 0; i < col; i++)
+        {
+            temp[0][i] = matrix[0][i] - '0';
+            for(int j = 1; j < row; j++)
+            {
+                if(matrix[j][i] == '1')
+                    temp[j][i] = temp[j - 1][i] + 1;
+            }
+        }
+        int area = 0;
+        for(int i = 0; i < row; i++)
+        {
+            area = max(area, largestRectangleArea(temp[i]));
+        }
+        return area;
+    }
+};
