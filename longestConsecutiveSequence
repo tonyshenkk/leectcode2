@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int longestConsecutive(vector<int> &num) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        int len = num.size();
+        if(len < 2)
+        {
+            return len;
+        }
+        unordered_set<int> hash;
+        for(int i = 0; i < len; i++)
+        {
+            hash.insert(num[i]);
+        }
+        
+        int maxlen = 0;
+        int left = 0;
+        int right = 0;
+        for(int i = 0; i < len; i++)
+        {
+            if(find(hash.begin(), hash.end(), num[i]) != hash.end())
+            {
+                left = 0;
+                right = 0;
+                int j = num[i] - 1;
+                while(find(hash.begin(), hash.end(), j) != hash.end())
+                {
+                    left++;
+                    hash.erase(j);
+                    j--;
+                }
+                j = num[i] + 1;
+                while(find(hash.begin(), hash.end(), j) != hash.end())
+                {
+                    right++;
+                    hash.erase(j);
+                    j++;
+                }
+                hash.erase(num[i]);
+                if(left + right + 1 > maxlen)
+                {
+                    maxlen = left + right + 1;
+                }
+            }
+        }
+        return maxlen;
+    }
+};
