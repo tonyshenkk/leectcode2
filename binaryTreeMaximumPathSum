@@ -1,0 +1,92 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ struct node{
+     int left;
+     int across;
+ };
+class Solution {
+public:
+    node check(TreeNode *root)
+    {
+        if(!root)
+        {
+            node result = {0,INT_MIN};
+            return result;
+        }
+        node lhs = check(root->left);
+        node rhs = check(root->right);
+        
+        int t = root->val;
+        if(lhs.left > 0)
+        {
+            t += lhs.left;
+        }
+        if(rhs.left > 0)
+        {
+            t += rhs.left;
+        }
+        
+        node result;
+        result.left = max(root->val, max(lhs.left, rhs.left) + root->val);
+        result.across = max(t, max(lhs.across, rhs.across));
+        
+        return result;
+    }
+    int maxPathSum(TreeNode *root) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        node result = check(root);
+        return max(result.left, result.across);
+    }
+};
+
+
+//less memory, but the same fast
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int check(TreeNode *root, int &across)
+    {
+        if(!root)
+        {
+            return 0;
+        }
+        int left = check(root->left, across);
+        int right = check(root->right, across);
+        
+        int len = root->val;
+        if(left > 0)
+        {
+            len += left;
+        }
+        if(right > 0)
+        {
+            len += right;
+        }
+        
+        across = max(across, len);
+        return max(max(left, right) + root->val, root->val);
+    }
+    int maxPathSum(TreeNode *root) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        int across = INT_MIN;
+        int len = check(root, across);
+        return max(len, across);
+    }
+};
