@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maxProfit(vector<int> &prices) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        int col = prices.size();
+        if(col < 2)
+        {
+            return 0;
+        }
+        int minP = prices[0];
+        int t = 0;
+        for(int i = 1; i < col; i++)
+        {
+            if(prices[i] - minP > t)
+            {
+                t = prices[i] - minP;
+            }
+            minP = min(prices[i], minP);
+        }
+        return t;
+    }
+};
