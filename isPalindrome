@@ -1,0 +1,44 @@
+class Solution {
+public:
+    bool isChara(char &c)
+    {
+        if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool isPalindrome(string s) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        int len = s.size();
+        if(len < 1)
+        {
+            return true;
+        }
+        for(int i = 0, j = len - 1; i < j;)
+        {
+            if(s[i] == s[j] || (abs(s[i] - s[j]) == 32 && isChara(s[i]) && isChara(s[j])))
+            {
+                i++;
+                j--;
+            }
+            else if(!isChara(s[i]))
+            {
+                i++;
+            }
+            else if(!isChara(s[j]))
+            {
+                j--;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+};
