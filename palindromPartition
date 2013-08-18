@@ -1,0 +1,37 @@
+class Solution {
+public:
+    void getPart(string &s, int start,  vector<string> &temp,
+        vector<vector<string>> &res, vector<vector<bool>> &palind)
+    {
+        if(start == s.size())
+        {
+            res.push_back(temp);
+            return;
+        }
+        for(int j = start; j < s.size(); j++)
+        {
+            if(s[start] == s[j] && (j - start < 2 || palind[start + 1][j - 1]))
+            {
+                palind[start][j] = true;
+                temp.push_back(s.substr(start, j - start + 1));
+                getPart(s, j + 1, temp, res, palind);
+                temp.pop_back();
+            }
+        }
+    }
+    vector<vector<string>> partition(string s) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<vector<string>> res;
+        
+        int len = s.size();
+        if(len < 1)
+        {
+            return res;
+        }
+        vector<vector<bool>> palind(len, vector<bool>(len, false));
+        vector<string> temp;
+        getPart(s, 0, temp, res, palind);
+        return res;        
+    }
+};
