@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        long long a = dividend;
+        long long b = divisor;
+        int flag = 1;
+        int res = 0;
+        if(a < 0)
+        {
+            a = -a;
+            flag = -1;
+        }
+        if(b < 0)
+        {
+            b = -b;
+            flag = flag * (-1);
+        }
+        int d = 0;
+        while((b << d) <= a)
+        {
+            d++;
+        }
+        d--;
+        for(int i = d; i >= 0; i--)
+        {
+            if((b << i) <= a)
+            {
+                res += (1 << i);
+                a -= (b << i);
+            }
+        }
+        return res * flag;
+    }
+};
