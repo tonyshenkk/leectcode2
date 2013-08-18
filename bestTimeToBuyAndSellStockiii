@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int maxProfit(vector<int> &prices) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        int days = prices.size();
+    	if(days < 2)
+    	{
+    		return 0;
+    	}
+    	vector<int> forward(days, 0);
+    	int maxi = 0, mini = prices[0];
+    	int maxPro = 0;
+    	for(int i = 1; i < days; i++)
+    	{
+    		if(prices[i] - mini > maxi)
+    		{
+    			maxi = prices[i] - mini;
+    			forward[i] = maxi;
+    		}
+    		else
+    		{
+    			forward[i] = forward[i - 1];
+    		}
+    		mini = min(prices[i], mini);
+    	}
+    	maxi = prices[days - 1];
+    	for(int i = days - 1; i >= 0; i--)
+    	{
+    		if(maxi - prices[i] + forward[i] > maxPro)
+    		{
+    			maxPro = maxi - prices[i] + forward[i];
+    		}
+    		maxi = max(maxi, prices[i]);
+    	}
+    	return maxPro;
+    }
+};
