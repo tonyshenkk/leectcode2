@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int numDistinct(string S, string T) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        int row = S.size();
+        int col = T.size();
+        if(row < col)
+        {
+            return 0;
+        }
+        if(col == 0)
+        {
+            return 1;
+        }
+        vector<vector<int>> temp(row + 1, vector<int>(col + 1, 0));
+        for(int i = 0; i <= row; i++)
+        {
+            temp[i][0] = 1;
+        }
+        char cs, ct;
+        for(int i = 1; i <= row; i++)
+        {
+            cs = S[i - 1];
+            for(int j = 1; j <= col; j++)
+            {
+                ct = T[j - 1];
+                if(cs == ct)
+                {
+                    temp[i][j] = temp[i - 1][j - 1] + temp[i - 1][j];
+                }
+                else
+                {
+                    temp[i][j] = temp[i - 1][j];
+                }
+            }
+        }
+        return temp[row][col];
+    }
+};
