@@ -45,7 +45,14 @@ public:
                 }
             }
             first = false;
-            r = r->left ? r->left : r->right;
+            while(r && !r->left && !r->right )
+            {
+                r = r->next;
+            }
+            if(r)
+            {
+                r = r->left ? r->left : r->right;
+            }
         }
     }
 };
